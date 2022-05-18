@@ -87,11 +87,33 @@ public class BinaryTree {
         }
         if (pre != null && pre.right == null) {
             pre.right = node;
-            node.rTag = 1;
+            pre.rTag = 1;
         }
         pre = node;
         //线索化右节点
         threadedNode(node.right);
+    }
+
+    public void threadList() {
+        this.threadList(root);
+    }
+
+    public void threadList(Node node) {
+        while (node != null) {
+            //找到左子树第一个节点
+            while (node.lTag == 0) {
+                node = node.left;
+            }
+            //输出节点
+            System.out.println(node);
+            //判断节点是否为叶子节点
+            //并输出
+            while (node.rTag == 1 && node.right != null) {
+                node = node.right;
+                System.out.println(node);
+            }
+            node = node.right;
+        }
     }
 
     @Test
@@ -119,14 +141,15 @@ public class BinaryTree {
         System.out.println(binaryTree.inorderSearch("04"));
         System.out.println("---------------后序查找--------------");
         System.out.println(binaryTree.postorderSearch("04"));
-        System.out.println("---------------删除--------------");
-        binaryTree.delete("02");
+//        System.out.println("---------------删除--------------");
+//        binaryTree.delete("02");
         System.out.println("---------------先序遍历--------------");
         binaryTree.preorder();
         System.out.println("---------------线索化二叉树--------------");
         binaryTree.threadedNode();
-        System.out.println(node5.left.hero);
-        System.out.println(node5.right.hero);
+        System.out.println("---------------遍历线索化二叉树--------------");
+        binaryTree.threadList();
+
     }
 }
 
